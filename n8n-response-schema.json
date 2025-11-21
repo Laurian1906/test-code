@@ -1,0 +1,104 @@
+{
+  "type": "object",
+  "properties": {
+    "next_message": {
+      "type": "string",
+      "description": "Mesajul bot-ului către utilizator sau 'READY_FOR_CONFIRMATION' când are toate informațiile necesare. ACEST CÂMP ESTE OBLIGATORIU și trebuie să conțină mesajul efectiv către utilizator, NU reasoning-ul intern."
+    },
+    "reasoning": {
+      "type": "string",
+      "description": "OPȚIONAL: Raționament intern pentru debugging. NU este mesajul către utilizator."
+    },
+    "ticket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "ID intern (numeric) dacă există"
+        },
+        "ticket_id": {
+          "type": "string",
+          "description": "ID-ul public al conversației/ticket-ului în format FB-<YEAR>-<3_DIGITS>"
+        },
+        "category": {
+          "type": "string",
+          "description": "Categoria feedback-ului (ex: 'Problemă Tehnică', 'Sugestie', 'Reclamație', 'Feedback Pozitiv', 'Întrebare', 'Documentație')"
+        },
+        "subcategory": {
+          "type": "string",
+          "description": "Subcategorie mai specifică"
+        },
+        "description": {
+          "type": "string",
+          "description": "Descriere concisă (1-2 propoziții)"
+        },
+        "severity": {
+          "type": "string",
+          "description": "Severitatea (scăzută/medie/ridicată/critică) - doar pentru probleme și reclamații",
+          "enum": ["scăzută", "medie", "ridicată", "critică", "necunoscut"]
+        },
+        "location_county": {
+          "type": "string",
+          "description": "Județul/raionul asociat"
+        },
+        "location_city": {
+          "type": "string",
+          "description": "Orașul/localitatea asociată"
+        },
+        "institution": {
+          "type": "string",
+          "description": "Instituția implicată"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status conversație/ticket - TREBUIE să fie 'new'",
+          "enum": ["new"]
+        },
+        "summary": {
+          "type": "string",
+          "description": "Rezumat generat al conversației"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Etichete asociate (maxim 3)",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3
+        },
+        "user_role": {
+          "type": "string",
+          "description": "Rolul declarantului"
+        },
+        "user_recommendations": {
+          "type": "string",
+          "description": "Recomandări sau soluții propuse de utilizator"
+        },
+        "datetime": {
+          "type": "string",
+          "description": "Timpul (ISO8601) asociat conversației"
+        }
+      },
+      "required": [
+        "id",
+        "ticket_id",
+        "category",
+        "subcategory",
+        "description",
+        "severity",
+        "location_county",
+        "location_city",
+        "institution",
+        "status",
+        "summary",
+        "tags"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "description": "Nivelul de încredere al extragerii datelor",
+      "enum": ["high", "medium", "low"]
+    }
+  },
+  "required": ["next_message", "ticket", "confidence"]
+}
